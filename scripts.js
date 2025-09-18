@@ -36,12 +36,12 @@ function createCard(photo) {
     col.remove();
   });
 
-  col
-    .querySelector(".clickImg")
-    .addEventListener("click", () => loadDetail(photo.id));
-  col
-    .querySelector(".clickTitle")
-    .addEventListener("click", () => loadDetail(photo.id));
+  col.querySelector(".clickImg").addEventListener("click", () => {
+    window.location.href = `details.html?id=${photo.id}`;
+  });
+  col.querySelector(".clickTitle").addEventListener("click", () => {
+    window.location.href = `details.html?id=${photo.id}`;
+  });
 
   return col;
 }
@@ -82,31 +82,31 @@ document.getElementById("searchBtn").addEventListener("click", (e) => {
 });
 
 // img details
-async function loadDetail(photoId) {
-  try {
-    const res = await fetch(`${photoURL}${photoId}`, {
-      headers: { Authorization: apiKey },
-    });
-    const photo = await res.json();
+// async function loadDetail(photoId) {
+//   try {
+//     const res = await fetch(`${photoURL}${photoId}`, {
+//       headers: { Authorization: apiKey },
+//     });
+//     const photo = await res.json();
 
-    // save
-    const prevContent = row.innerHTML;
+//     // save
+//     const prevContent = row.innerHTML;
 
-    row.innerHTML = `
-      <div class="col-12 text-center">
-        <h2>${photo.alt || "Details img"}</h2>
-        <img src="${photo.src.large}" class="img-fluid my-3"/>
-        <p>Foto di: <a href="${photo.photographer_url}" target="_blank">${
-      photo.photographer
-    }</a></p>
-        <button class="btn btn-secondary" id="backBtn">Torna indietro</button>
-      </div>
-    `;
+//     row.innerHTML = `
+//       <div class="col-12 text-center">
+//         <h2>${photo.alt || "Details img"}</h2>
+//         <img src="${photo.src.large}" class="img-fluid my-3"/>
+//         <p>Foto di: <a href="${photo.photographer_url}" target="_blank">${
+//       photo.photographer
+//     }</a></p>
+//         <button class="btn btn-secondary" id="backBtn">Torna indietro</button>
+//       </div>
+//     `;
 
-    document.getElementById("backBtn").addEventListener("click", () => {
-      row.innerHTML = prevContent;
-    });
-  } catch (err) {
-    console.error("Errore nel caricamento dettaglio:", err);
-  }
-}
+//     document.getElementById("backBtn").addEventListener("click", () => {
+//       row.innerHTML = prevContent;
+//     });
+//   } catch (err) {
+//     console.error("Errore nel caricamento dettaglio:", err);
+//   }
+// }

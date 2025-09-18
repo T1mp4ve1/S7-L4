@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dettaglio Foto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="container py-5 text-center" id="detail-container">
+    </div>
+
+    <script>
+        const apiKey = "W3A2R7BdhwjwlraJJo931BbcK7kv5tVwiDw5qbYvR3Bi7l0z9q8asF1M";
+        const photoURL = "https://api.pexels.com/v1/photos/";
+
+        const params = new URLSearchParams(window.location.search);
+        const photoId = params.get("id");
+
+        async function loadPhotoDetail(id) {
+            try {
+                const res = await fetch(`${photoURL}${id}`, {
+                    headers: { Authorization: apiKey }
+                });
+                if (!res.ok) throw new Error("ERRORA!");
+                const photo = await res.json();
+
+                document.getElementById("detail-container").innerHTML = `
+            <h2 class="mb-4">${photo.alt || "Dettaglio immagine"}</h2>
+            <img src="${photo.src.large}" class="img-fluid mb-3" alt="${photo.alt}">
+            <p>Foto di: 
+              <a href="${photo.photographer_url}" target="_blank">${photo.photographer}</a>
+            </p>
+            <a href="pexels-start.html" class="btn btn-secondary mt-3">Torna indietro</a>
+          `;
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        loadPhotoDetail(photoId);
+
+    </script>
+</body>
+
+</html>
