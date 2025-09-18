@@ -1,6 +1,6 @@
 const apiKey = "W3A2R7BdhwjwlraJJo931BbcK7kv5tVwiDw5qbYvR3Bi7l0z9q8asF1M";
 const apiURL = "https://api.pexels.com/v1/search?query=";
-const photoURL = "hhttps://api.pexels.com/v1/photos/";
+const photoURL = "https://api.pexels.com/v1/photos/";
 const row = document.querySelector(".album .row");
 const btnLoad = document.getElementById("loadImages");
 const btnSecond = document.getElementById("loadSecondaryImages");
@@ -74,7 +74,7 @@ btnSecond.addEventListener("click", (e) => {
   loadImages("universe");
 });
 
-// serch
+// search
 document.getElementById("searchBtn").addEventListener("click", (e) => {
   e.preventDefault();
   const query = document.getElementById("searchInput").value.trim();
@@ -90,9 +90,9 @@ async function loadDetail(photoId) {
     const photo = await res.json();
 
     // save
-    const prevContent = container.innerHTML;
+    const prevContent = row.innerHTML;
 
-    container.innerHTML = `
+    row.innerHTML = `
       <div class="col-12 text-center">
         <h2>${photo.alt || "Details img"}</h2>
         <img src="${photo.src.large}" class="img-fluid my-3"/>
@@ -104,7 +104,7 @@ async function loadDetail(photoId) {
     `;
 
     document.getElementById("backBtn").addEventListener("click", () => {
-      container.innerHTML = prevContent;
+      row.innerHTML = prevContent;
     });
   } catch (err) {
     console.error("Errore nel caricamento dettaglio:", err);
